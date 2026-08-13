@@ -246,3 +246,9 @@ export const dealsOfTheDay = () =>
 
 export const byTag = (tag: string, limit = 12) =>
   products.filter((p) => p.tags.includes(tag)).slice(0, limit);
+
+export const categoryImage = (categoryId: string) =>
+  products.find((p) => p.categoryId === categoryId)?.thumbnail;
+
+export const subcategoryImage = (subcategoryId: string) =>
+  products.find((p) => p.subcategoryId === subcategoryId)?.thumbnail;
