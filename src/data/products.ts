@@ -217,7 +217,8 @@ export const products: Product[] = rows.map((r, index) => {
     reviewCount,
     unit,
     emoji,
-    images: [],
+    images: [imageFor(name, categoryId)],
+    thumbnail: imageFor(name, categoryId),
     inStock: inStock !== false,
     tags: tags.split(","),
     info: [
