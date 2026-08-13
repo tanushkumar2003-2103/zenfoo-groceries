@@ -3,7 +3,7 @@ import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { ProductBrowser } from "@/components/product/ProductBrowser";
 import { getCategory, getSubcategories } from "@/data/categories";
-import { productsByCategory, productsBySubcategory } from "@/data/products";
+import { categoryImage, productsByCategory, productsBySubcategory } from "@/data/products";
 
 export const Route = createFileRoute("/category/$categorySlug/")({
   loader: ({ params }) => {
@@ -48,11 +48,23 @@ function CategoryPage() {
 
       <div className="mt-3 flex items-center gap-3">
         <span
-          className="grid size-12 shrink-0 place-items-center rounded-2xl text-2xl"
+          className="grid size-12 shrink-0 place-items-center overflow-hidden rounded-2xl p-1"
           style={{ backgroundColor: category.tone }}
-          aria-hidden="true"
         >
-          {category.emoji}
+          {categoryImage(category.id) ? (
+            <img
+              src={categoryImage(category.id)}
+              alt={category.name}
+              width={600}
+              height={600}
+              decoding="async"
+              className="h-full w-full object-contain"
+            />
+          ) : (
+            <span aria-hidden="true" className="text-2xl">
+              {category.emoji}
+            </span>
+          )}
         </span>
         <div className="min-w-0">
           <h1 className="truncate text-2xl font-extrabold sm:text-3xl">{category.name}</h1>

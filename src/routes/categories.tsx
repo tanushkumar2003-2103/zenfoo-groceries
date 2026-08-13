@@ -2,7 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { categories, getSubcategories } from "@/data/categories";
-import { productsByCategory } from "@/data/products";
+import { categoryImage, productsByCategory, subcategoryImage } from "@/data/products";
 
 export const Route = createFileRoute("/categories")({
   head: () => ({
@@ -38,11 +38,24 @@ function CategoriesPage() {
             <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
               <div className="flex min-w-0 items-center gap-3">
                 <span
-                  className="grid size-11 shrink-0 place-items-center rounded-xl text-2xl"
+                  className="grid size-11 shrink-0 place-items-center overflow-hidden rounded-xl p-1"
                   style={{ backgroundColor: category.tone }}
-                  aria-hidden="true"
                 >
-                  {category.emoji}
+                  {categoryImage(category.id) ? (
+                    <img
+                      src={categoryImage(category.id)}
+                      alt={category.name}
+                      width={600}
+                      height={600}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-contain"
+                    />
+                  ) : (
+                    <span aria-hidden="true" className="text-2xl">
+                      {category.emoji}
+                    </span>
+                  )}
                 </span>
                 <div className="min-w-0">
                   <h2 className="truncate text-base font-bold sm:text-lg">{category.name}</h2>
@@ -68,11 +81,22 @@ function CategoriesPage() {
                   params={{ categorySlug: category.slug, subcategorySlug: subcategory.slug }}
                   className="group flex items-center gap-2.5 rounded-xl border border-border bg-card p-3 transition-shadow hover:shadow-[var(--shadow-card)]"
                 >
-                  <span
-                    className="grid size-9 shrink-0 place-items-center rounded-lg bg-surface text-lg transition-transform group-hover:scale-110"
-                    aria-hidden="true"
-                  >
-                    {subcategory.emoji}
+                  <span className="grid size-9 shrink-0 place-items-center overflow-hidden rounded-lg bg-surface p-0.5 transition-transform group-hover:scale-110">
+                    {subcategoryImage(subcategory.id) ? (
+                      <img
+                        src={subcategoryImage(subcategory.id)}
+                        alt=""
+                        width={600}
+                        height={600}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-contain"
+                      />
+                    ) : (
+                      <span aria-hidden="true" className="text-lg">
+                        {subcategory.emoji}
+                      </span>
+                    )}
                   </span>
                   <span className="min-w-0 truncate text-xs font-semibold sm:text-sm">
                     {subcategory.name}
