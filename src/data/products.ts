@@ -16,6 +16,7 @@ export type Product = {
   unit: string;
   emoji: string;
   images: string[];
+  thumbnail: string;
   inStock: boolean;
   tags: string[];
   info: { label: string; value: string }[];
@@ -167,6 +168,31 @@ const rows: Row[] = [
   ["Ocean Fish Cat Food", "Whiskas", "pet-care", "cat-food", "1.1 kg", 449, 549, 4.3, 420, "🐈", "pet"],
 ];
 
+const imageFolders: Record<string, string> = {
+  "fruits-vegetables": "fresh",
+  "dairy-bread-eggs": "dairy",
+  "atta-rice-oil-dals": "staples",
+  "masala-dry-fruits": "masala",
+  "snacks-munchies": "snacks",
+  "cold-drinks-juices": "beverages",
+  "ice-creams": "ice-creams",
+  chocolates: "chocolates",
+  "breakfast-cereals": "breakfast",
+  beverages: "beverages",
+  "personal-care": "personal-care",
+  "cleaning-essentials": "cleaning",
+  "baby-care": "baby-care",
+  "pet-care": "pet-care",
+};
+
+const imageFor = (name: string, categoryId: string) => {
+  const file = name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  return `/images/products/${imageFolders[categoryId] ?? "fresh"}/${file}.webp`;
+};
+
 const descriptionFor = (name: string, brand: string, unit: string, category: string) =>
   `${name} from ${brand}, packed in a ${unit} pack. Hand-picked for the Zenfoo ${category} range and quality-checked before it reaches your door. Stored under ideal conditions and delivered fresh in minutes.`;
 
@@ -191,7 +217,8 @@ export const products: Product[] = rows.map((r, index) => {
     reviewCount,
     unit,
     emoji,
-    images: [],
+    images: [imageFor(name, categoryId)],
+    thumbnail: imageFor(name, categoryId),
     inStock: inStock !== false,
     tags: tags.split(","),
     info: [
@@ -219,3 +246,9 @@ export const dealsOfTheDay = () =>
 
 export const byTag = (tag: string, limit = 12) =>
   products.filter((p) => p.tags.includes(tag)).slice(0, limit);
+
+export const categoryImage = (categoryId: string) =>
+  products.find((p) => p.categoryId === categoryId)?.thumbnail;
+
+export const subcategoryImage = (subcategoryId: string) =>
+  products.find((p) => p.subcategoryId === subcategoryId)?.thumbnail;

@@ -73,6 +73,7 @@ function CartPage() {
                   emoji={item.product.emoji}
                   name={item.product.name}
                   seed={item.productId}
+                  src={item.product.thumbnail}
                   size="sm"
                 />
               </Link>

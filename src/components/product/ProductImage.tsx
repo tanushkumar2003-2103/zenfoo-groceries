@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import { cn } from "@/lib/utils";
 
 const tones = [
@@ -19,40 +21,80 @@ export function ProductImage({
   emoji,
   name,
   seed,
+  src,
   className,
   size = "md",
+  priority = false,
+  fit = "contain",
 }: {
   emoji: string;
   name: string;
   seed: string;
+  src?: string;
   className?: string;
   size?: "sm" | "md" | "lg";
+  priority?: boolean;
+  fit?: "contain" | "cover";
 }) {
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    setFailed(false);
+  }, [src]);
+
   const sizes = {
     sm: "text-3xl",
     md: "text-5xl sm:text-6xl",
     lg: "text-7xl sm:text-8xl",
   } as const;
 
+  const padding = { sm: "p-1.5", md: "p-3", lg: "p-6" } as const;
+
+  if (!src || failed) {
+    return (
+      <div
+        role="img"
+        aria-label={name}
+        className={cn(
+          "flex aspect-square w-full items-center justify-center overflow-hidden rounded-xl",
+          className,
+        )}
+        style={{ backgroundColor: toneFor(seed) }}
+      >
+        <span
+          aria-hidden="true"
+          className={cn(
+            "select-none transition-transform duration-300 ease-out group-hover:scale-110",
+            sizes[size],
+          )}
+        >
+          {emoji}
+        </span>
+      </div>
+    );
+  }
+
   return (
     <div
-      role="img"
-      aria-label={name}
       className={cn(
-        "flex aspect-square w-full items-center justify-center overflow-hidden rounded-xl",
+        "relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-xl bg-background",
+        padding[size],
         className,
       )}
-      style={{ backgroundColor: toneFor(seed) }}
     >
-      <span
-        aria-hidden="true"
+      <img
+        src={src}
+        alt={name}
+        width={600}
+        height={600}
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+        onError={() => setFailed(true)}
         className={cn(
-          "select-none transition-transform duration-300 ease-out group-hover:scale-110",
-          sizes[size],
+          "relative h-full w-full transition-transform duration-300 ease-out group-hover:scale-105",
+          fit === "cover" ? "object-cover" : "object-contain",
         )}
-      >
-        {emoji}
-      </span>
+      />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { ProductBrowser } from "@/components/product/ProductBrowser";
 import { getCategory, getSubcategories, getSubcategory } from "@/data/categories";
-import { productsBySubcategory } from "@/data/products";
+import { productsBySubcategory, subcategoryImage } from "@/data/products";
 
 export const Route = createFileRoute("/category/$categorySlug/$subcategorySlug")({
   loader: ({ params }) => {
@@ -72,7 +72,19 @@ function SubcategoryPage() {
             activeProps={{ className: "border-primary bg-primary-tint text-primary-dark" }}
             className="flex shrink-0 items-center gap-2 rounded-xl border border-border bg-card px-3 py-2 text-sm font-medium hover:border-primary"
           >
-            <span aria-hidden="true">{sub.emoji}</span>
+            {subcategoryImage(sub.id) ? (
+              <img
+                src={subcategoryImage(sub.id)}
+                alt=""
+                width={600}
+                height={600}
+                loading="lazy"
+                decoding="async"
+                className="size-6 shrink-0 object-contain"
+              />
+            ) : (
+              <span aria-hidden="true">{sub.emoji}</span>
+            )}
             {sub.name}
           </Link>
         ))}

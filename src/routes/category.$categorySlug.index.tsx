@@ -3,7 +3,12 @@ import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { ProductBrowser } from "@/components/product/ProductBrowser";
 import { getCategory, getSubcategories } from "@/data/categories";
-import { productsByCategory, productsBySubcategory } from "@/data/products";
+import {
+  categoryImage,
+  productsByCategory,
+  productsBySubcategory,
+  subcategoryImage,
+} from "@/data/products";
 
 export const Route = createFileRoute("/category/$categorySlug/")({
   loader: ({ params }) => {
@@ -48,11 +53,23 @@ function CategoryPage() {
 
       <div className="mt-3 flex items-center gap-3">
         <span
-          className="grid size-12 shrink-0 place-items-center rounded-2xl text-2xl"
+          className="grid size-12 shrink-0 place-items-center overflow-hidden rounded-2xl p-1"
           style={{ backgroundColor: category.tone }}
-          aria-hidden="true"
         >
-          {category.emoji}
+          {categoryImage(category.id) ? (
+            <img
+              src={categoryImage(category.id)}
+              alt={category.name}
+              width={600}
+              height={600}
+              decoding="async"
+              className="h-full w-full object-contain"
+            />
+          ) : (
+            <span aria-hidden="true" className="text-2xl">
+              {category.emoji}
+            </span>
+          )}
         </span>
         <div className="min-w-0">
           <h1 className="truncate text-2xl font-extrabold sm:text-3xl">{category.name}</h1>
@@ -69,7 +86,19 @@ function CategoryPage() {
             params={{ categorySlug: category.slug, subcategorySlug: sub.slug }}
             className="flex shrink-0 items-center gap-2 rounded-xl border border-border bg-card px-3 py-2 text-sm font-medium hover:border-primary hover:text-primary"
           >
-            <span aria-hidden="true">{sub.emoji}</span>
+            {subcategoryImage(sub.id) ? (
+              <img
+                src={subcategoryImage(sub.id)}
+                alt=""
+                width={600}
+                height={600}
+                loading="lazy"
+                decoding="async"
+                className="size-6 shrink-0 object-contain"
+              />
+            ) : (
+              <span aria-hidden="true">{sub.emoji}</span>
+            )}
             {sub.name}
             <span className="text-xs text-muted-foreground">
               {productsBySubcategory(sub.id).length}

@@ -28,7 +28,12 @@ export function ProductCard({ product, className }: { product: Product; classNam
           className="block focus-visible:rounded-xl"
           aria-label={product.name}
         >
-          <ProductImage emoji={product.emoji} name={product.name} seed={product.id} />
+          <ProductImage
+            emoji={product.emoji}
+            name={product.name}
+            seed={product.id}
+            src={product.thumbnail}
+          />
         </Link>
 
         {product.discount > 0 ? (
