@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { categories } from "@/data/categories";
+import { categoryImage } from "@/data/products";
 
 export function CategorySection() {
   return (
@@ -27,13 +28,27 @@ export function CategorySection() {
               className="group rounded-2xl border border-border bg-card p-3 text-center transition-shadow hover:shadow-[var(--shadow-card)]"
             >
               <div
-                className="mx-auto grid aspect-square w-full max-w-24 place-items-center rounded-xl text-3xl sm:text-4xl"
+                className="mx-auto grid aspect-square w-full max-w-24 place-items-center overflow-hidden rounded-xl p-1.5"
                 style={{ backgroundColor: category.tone }}
-                aria-hidden="true"
               >
-                <span className="transition-transform duration-300 group-hover:scale-110">
-                  {category.emoji}
-                </span>
+                {categoryImage(category.id) ? (
+                  <img
+                    src={categoryImage(category.id)}
+                    alt={category.name}
+                    width={600}
+                    height={600}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-110"
+                  />
+                ) : (
+                  <span
+                    aria-hidden="true"
+                    className="text-3xl transition-transform duration-300 group-hover:scale-110 sm:text-4xl"
+                  >
+                    {category.emoji}
+                  </span>
+                )}
               </div>
               <p className="mt-2.5 text-xs font-semibold leading-tight sm:text-sm">
                 {category.shortName}

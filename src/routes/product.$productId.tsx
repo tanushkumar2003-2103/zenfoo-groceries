@@ -57,6 +57,7 @@ function ProductPage() {
     .slice(0, 10);
 
   useEffect(() => {
+    setActiveImage(0);
     trackView(product.id);
   }, [product.id, trackView]);
 
