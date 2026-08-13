@@ -37,11 +37,9 @@ export function ProductImage({
   fit?: "contain" | "cover";
 }) {
   const [failed, setFailed] = useState(false);
-  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     setFailed(false);
-    setLoaded(false);
   }, [src]);
 
   const sizes = {
@@ -84,7 +82,6 @@ export function ProductImage({
         className,
       )}
     >
-      {!loaded ? <div className="absolute inset-0 animate-pulse bg-surface" aria-hidden="true" /> : null}
       <img
         src={src}
         alt={name}
@@ -92,12 +89,10 @@ export function ProductImage({
         height={600}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
-        onLoad={() => setLoaded(true)}
         onError={() => setFailed(true)}
         className={cn(
           "relative h-full w-full transition-transform duration-300 ease-out group-hover:scale-105",
           fit === "cover" ? "object-cover" : "object-contain",
-          loaded ? "opacity-100" : "opacity-0",
         )}
       />
     </div>
