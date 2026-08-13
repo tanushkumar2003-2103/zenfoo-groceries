@@ -29,7 +29,7 @@ export function CategorySection() {
             >
               <div
                 className="mx-auto grid aspect-square w-full max-w-24 place-items-center overflow-hidden rounded-xl p-1.5"
-                style={{ backgroundColor: category.tone }}
+                
               >
                 {categoryImage(category.id) ? (
                   <img

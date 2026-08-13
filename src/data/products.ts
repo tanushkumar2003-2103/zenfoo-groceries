@@ -95,7 +95,7 @@ const rows: Row[] = [
   // Masala & dry fruits
   ["Turmeric Powder", "Everest", "masala-dry-fruits", "powdered-masala", "200 g", 68, 82, 4.4, 1540, "🥄", "masala,haldi"],
   ["Red Chilli Powder", "Everest", "masala-dry-fruits", "powdered-masala", "200 g", 94, 110, 4.3, 1210, "🌶️", "masala"],
-  ["Garam Masala", "MDH", "masala-dry-fruits", "powdered-masala", "100 g", 82, 95, 4.5, 1880, "🥄", "masala"],
+  ["Garam Masala", "MTR", "masala-dry-fruits", "powdered-masala", "100 g", 82, 95, 4.5, 1880, "🥄", "masala"],
   ["Cumin Seeds (Jeera)", "Tata Sampann", "masala-dry-fruits", "whole-spices", "200 g", 128, 160, 4.4, 720, "🌿", "masala,whole"],
   ["California Almonds", "Happilo", "masala-dry-fruits", "dry-fruits", "500 g", 549, 799, 4.6, 2140, "🥜", "dryfruit,premium"],
   ["Whole Cashews W320", "Nutraj", "masala-dry-fruits", "dry-fruits", "250 g", 329, 425, 4.4, 860, "🥜", "dryfruit"],
@@ -163,7 +163,7 @@ const rows: Row[] = [
   // Baby & pet
   ["Baby Dry Pants Medium", "Pampers", "baby-care", "diapers-wipes", "36 pcs", 649, 799, 4.5, 1220, "🍼", "baby"],
   ["Gentle Baby Wipes", "Himalaya", "baby-care", "diapers-wipes", "72 pcs", 199, 240, 4.4, 640, "🧻", "baby"],
-  ["Rice Cereal Stage 1", "Nestlé Cerelac", "baby-care", "baby-food", "300 g", 289, 320, 4.3, 820, "🍚", "baby"],
+  ["Rice Cereal Stage 1", "Nestle Cerelac", "baby-care", "baby-food", "300 g", 289, 320, 4.3, 820, "🍚", "baby"],
   ["Adult Dog Food Chicken", "Pedigree", "pet-care", "dog-food", "3 kg", 749, 899, 4.5, 940, "🐕", "pet"],
   ["Ocean Fish Cat Food", "Whiskas", "pet-care", "cat-food", "1.1 kg", 449, 549, 4.3, 420, "🐈", "pet"],
 ];
