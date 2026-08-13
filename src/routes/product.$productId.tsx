@@ -1,6 +1,6 @@
 import { Link, createFileRoute, notFound, useNavigate } from "@tanstack/react-router";
 import { Clock, Heart, MapPin, RotateCcw, ShieldCheck } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
@@ -43,6 +43,7 @@ export const Route = createFileRoute("/product/$productId")({
 
 function ProductPage() {
   const { product } = Route.useLoaderData();
+  const [activeImage, setActiveImage] = useState(0);
   const navigate = useNavigate();
   const { qtyOf, addToCart, setQty, isWishlisted, toggleWishlist, trackView } = useStore();
   const qty = qtyOf(product.id);
@@ -92,22 +93,37 @@ function ProductPage() {
               emoji={product.emoji}
               name={product.name}
               seed={product.id}
+              src={product.images[activeImage] ?? product.thumbnail}
               size="lg"
+              priority
               className="rounded-2xl"
             />
           </div>
-          <div className="mt-3 grid grid-cols-4 gap-3">
-            {[0, 1, 2, 3].map((i) => (
-              <div key={i} className="rounded-xl border border-border bg-card p-2">
-                <ProductImage
-                  emoji={product.emoji}
-                  name={`${product.name} view ${i + 1}`}
-                  seed={`${product.id}-${i}`}
-                  size="sm"
-                />
-              </div>
-            ))}
-          </div>
+          {product.images.length > 1 ? (
+            <div className="mt-3 grid grid-cols-4 gap-3">
+              {product.images.map((image, i) => (
+                <button
+                  key={image}
+                  type="button"
+                  onClick={() => setActiveImage(i)}
+                  aria-label={`${product.name} image ${i + 1}`}
+                  aria-pressed={activeImage === i}
+                  className={cn(
+                    "rounded-xl border bg-card p-2",
+                    activeImage === i ? "border-primary" : "border-border",
+                  )}
+                >
+                  <ProductImage
+                    emoji={product.emoji}
+                    name={`${product.name} view ${i + 1}`}
+                    seed={`${product.id}-${i}`}
+                    src={image}
+                    size="sm"
+                  />
+                </button>
+              ))}
+            </div>
+          ) : null}
         </div>
 
         <div>
